@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Etapas da compra: {{ sale.code }}</h2>
+        <ul class="list-group">
+            {% for tracking in trackings %}
+                <li class="list-group-item">
+                    {{ tracking.description }} - {{ tracking.update_at|date:"d/m/Y H:i" }}
+                </li>
+            {% empty %}
+                <li class="list-group-item">Nenhuma etapa registrada para esta compra.</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
