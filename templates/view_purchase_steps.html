@@ -6,7 +6,7 @@
         <ul class="list-group">
             {% for tracking in trackings %}
                 <li class="list-group-item">
-                    {{ tracking.description }} - {{ tracking.update_at|date:"d/m/Y H:i" }}
+                    {{ tracking.description }} - {{ tracking.updated_at|date:"d/m/Y H:i" }}
                 </li>
             {% empty %}
                 <li class="list-group-item">Nenhuma etapa registrada para esta compra.</li>

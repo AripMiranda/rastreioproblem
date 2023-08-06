@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,7 +26,19 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# Application definition
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
+CELERY_BEAT_SCHEDULE = {
+    'update_sales': {
+        'task': 'commons.tasks.sale.update_sales',
+        'schedule': timedelta(seconds=1),
+    },
+}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -39,6 +51,7 @@ INSTALLED_APPS = [
 
 CUSTOM_APPS = [
     'commons',
+    'django_celery_beat'
 
 ]
 

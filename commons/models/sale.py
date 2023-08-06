@@ -12,6 +12,7 @@ class Sale(models.Model):
     value = models.DecimalField(max_digits=10, decimal_places=2)
     sale_date = models.DateTimeField(auto_now_add=True)
     code = models.CharField(max_length=64, unique=True, editable=False)
+    finished = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.code:
