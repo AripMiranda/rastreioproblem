@@ -26,8 +26,17 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+def get_redis_port_from_config(config_path="redis.conf"):
+    with open(config_path, 'r') as f:
+        for line in f:
+            if line.startswith("port "):
+                return line.split()[1]
+    raise ValueError("Porta não encontrada no arquivo redis.conf")
+
+REDIS_PORT = get_redis_port_from_config()
+
+CELERY_BROKER_URL = f'redis://localhost:{REDIS_PORT}/0'
+CELERY_RESULT_BACKEND = f'redis://localhost:{REDIS_PORT}/0'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

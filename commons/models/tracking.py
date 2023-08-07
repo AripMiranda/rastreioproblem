@@ -11,6 +11,7 @@ class Tracking(models.Model):
 
     class Meta:
         ordering = ['updated_at']
+        verbose_name = 'Rastreamento'
 
     def __str__(self):
         return f"{self.description} em {self.updated_at.strftime('%d/%m/%Y %H:%M')}"

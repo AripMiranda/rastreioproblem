@@ -26,3 +26,7 @@ class Shop(models.Model):
     def make_referral(self):
         hash_base = f"{self.id}-{uuid.uuid4()}"
         return hashlib.sha256(hash_base.encode()).hexdigest()
+    
+    class Meta:
+        ordering = ('-created_date',)
+        verbose_name = 'Loja'
