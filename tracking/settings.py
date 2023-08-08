@@ -26,12 +26,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+
 def get_redis_port_from_config(config_path="redis.conf"):
     with open(config_path, 'r') as f:
         for line in f:
             if line.startswith("port "):
                 return line.split()[1]
     raise ValueError("Porta não encontrada no arquivo redis.conf")
+
 
 REDIS_PORT = get_redis_port_from_config()
 
@@ -47,7 +49,6 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(seconds=1),
     },
 }
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',

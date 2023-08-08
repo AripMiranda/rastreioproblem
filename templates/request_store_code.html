@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2>Informe o Código da Loja</h2>
+        <form action="{% url 'create_sale' %}" method="GET">
+            <input type="text" name="referral" placeholder="Código da Loja">
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+{% endblock %}

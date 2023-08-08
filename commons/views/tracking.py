@@ -4,6 +4,19 @@ from commons.models.sale import Sale
 
 
 def enter_purchase_code(request):
+    """
+    Allows a user to enter a purchase code and be redirected to view its steps.
+
+    If the request method is POST, this view will try to find the sale with the provided code.
+    If the sale is found, the user will be redirected to its steps view.
+    Otherwise, they will see the form to enter the purchase code again.
+
+    Args:
+        request (HttpRequest): The request object.
+
+    Returns:
+        HttpResponse: Rendered HTML response for entering the purchase code or a redirect to the purchase steps view.
+    """
     if request.method == 'POST':
         code = request.POST.get('code')
         sale = get_object_or_404(Sale, code=code)
@@ -12,6 +25,19 @@ def enter_purchase_code(request):
 
 
 def view_purchase_steps(request, sale_id):
+    """
+    Display the steps (trackings) associated with a given sale.
+
+    This view fetches the sale by its ID and then retrieves all trackings related to this sale.
+    It then passes these trackings to the template for rendering.
+
+    Args:
+        request (HttpRequest): The request object.
+        sale_id (int): The ID of the sale whose steps are to be viewed.
+
+    Returns:
+        HttpResponse: Rendered HTML response showing the purchase steps for the given sale.
+    """
     sale = get_object_or_404(Sale, id=sale_id)
     trackings = sale.sale_tracking.all()
     context = {'trackings': trackings, 'sale': sale}

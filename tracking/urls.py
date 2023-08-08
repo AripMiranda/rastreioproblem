@@ -17,12 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from commons.views.sale import create_sale
+from commons.views.sale import create_sale, generate_sale
 from commons.views.tracking import enter_purchase_code, view_purchase_steps
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('create_sale/<str:referral>/', create_sale, name='create_sale'),
+    path('create_sale/', create_sale, name='create_sale'),
+    path('generate_sale/<int:store_id>/', generate_sale, name='generate_sale'),
     path('enter_code/', enter_purchase_code, name='enter_purchase_code'),
     path('purchase_steps/<int:sale_id>/', view_purchase_steps, name='view_purchase_steps'),
 ]

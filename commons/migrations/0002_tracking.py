@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('commons', '0001_initial'),
     ]
@@ -17,7 +16,8 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('description', models.TextField()),
                 ('updated_at', models.DateTimeField(auto_now_add=True)),
-                ('sale', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sale_tracking', to='commons.sale')),
+                ('sale', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='sale_tracking',
+                                           to='commons.sale')),
             ],
             options={
                 'ordering': ['updated_at'],
