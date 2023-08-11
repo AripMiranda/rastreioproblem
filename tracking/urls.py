@@ -16,14 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from commons.views.home import homepage
 
 from commons.views.sale import create_sale, generate_sale
 from commons.views.tracking import enter_purchase_code, view_purchase_steps
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+    path('', homepage, name='homepage'), 
     path('admin/', admin.site.urls),
     path('create_sale/', create_sale, name='create_sale'),
     path('generate_sale/<int:store_id>/', generate_sale, name='generate_sale'),
     path('enter_code/', enter_purchase_code, name='enter_purchase_code'),
     path('purchase_steps/<int:sale_id>/', view_purchase_steps, name='view_purchase_steps'),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

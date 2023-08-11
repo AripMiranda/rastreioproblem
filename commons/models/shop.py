@@ -1,6 +1,9 @@
 import hashlib
 import uuid
 
+from datetime import timedelta
+from django.utils import timezone
+
 from django.db import models
 
 
@@ -23,6 +26,9 @@ class Shop(models.Model):
     referral = models.CharField(max_length=64, unique=True, editable=False)
     custom_referral = models.CharField(max_length=64, blank=True, default='')
     points_balance = models.PositiveIntegerField(default=0)
+    url_site = models.URLField(blank=True, null=True)
+    logo = models.ImageField(upload_to='shop_imgs/', blank=True, null=True)
+    premium_expiration_date = models.DateTimeField(blank=True, null=True)
 
     def save(self, *args, **kwargs):
         """
@@ -32,6 +38,9 @@ class Shop(models.Model):
         custom referral code. If none exists, it generates a new
         referral code before saving the shop instance.
         """
+        if not self.pk:  # Check if this is a new shop instance
+            self.premium_expiration_date = timezone.now() + timedelta(days=7)
+        
         if not self.referral:
             if self.custom_referral:
                 self.referral = self.custom_referral

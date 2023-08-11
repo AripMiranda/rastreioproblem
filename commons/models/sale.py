@@ -19,7 +19,7 @@ class Sale(models.Model):
         - finished: Indicates if the sale has been completed.
     """
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
-    description = models.TextField(default='')
+    description = models.TextField(default='', blank=True)
     value = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     sale_date = models.DateTimeField(auto_now_add=True)
     code = models.CharField(max_length=64, unique=True, editable=False)
