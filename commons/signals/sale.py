@@ -23,5 +23,5 @@ def create_initial_tracking(sender, instance, created, **kwargs):
     if created:
         Tracking.objects.create(
             sale=instance,
-            description="Processando compra"
+            description="Processando pedido"
         )

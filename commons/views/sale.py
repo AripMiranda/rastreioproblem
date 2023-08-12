@@ -52,7 +52,7 @@ def generate_sale(request, store_id):
 
     if shop.points_balance < PRICE_BY_TRACKING:
         messages.error(request, 'A loja não tem pontos suficientes para autorizar a venda.')
-        return redirect('create_sale')
+        return render(request, 'error.html', {'message': 'A loja não tem pontos suficientes para autorizar a venda!'})
     else:
         sale = Sale.objects.create(shop=shop)
         shop.points_balance -= PRICE_BY_TRACKING

@@ -38,5 +38,6 @@ def next_step(sale):
     """
 
     tracking = sale.sale_tracking.order_by('-updated_at').first()
-    description = STEPS[tracking.description]
-    Tracking.objects.create(sale=sale, description=description)
+    if tracking and (timezone.now() - tracking.updated_at).days >= 3 and tracking.description in STEPS:
+        description = STEPS[tracking.description]
+        Tracking.objects.create(sale=sale, description=description)

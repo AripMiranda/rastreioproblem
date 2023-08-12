@@ -41,10 +41,10 @@ class Shop(models.Model):
             self.premium_expiration_date = timezone.now() + timedelta(days=7)
 
         if not self.referral:
-            if self.custom_referral:
-                self.referral = self.custom_referral
-            else:
-                self.referral = self.make_referral()
+            self.referral = self.make_referral()
+        elif self.custom_referral:
+            self.referral = self.custom_referral
+
         super(Shop, self).save(*args, **kwargs)
 
     def __str__(self):
