@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from commons.models.sale import Sale
+from commons.tasks.sale import next_step
 
 
 def enter_purchase_code(request):
@@ -39,6 +40,7 @@ def view_purchase_steps(request, sale_id):
         HttpResponse: Rendered HTML response showing the purchase steps for the given sale.
     """
     sale = get_object_or_404(Sale, id=sale_id)
+    next_step(sale)
     trackings = sale.sale_tracking.all()
     context = {'trackings': trackings, 'sale': sale}
     return render(request, 'view_purchase_steps.html', context)

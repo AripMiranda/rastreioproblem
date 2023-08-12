@@ -1,10 +1,9 @@
 import hashlib
 import uuid
-
 from datetime import timedelta
-from django.utils import timezone
 
 from django.db import models
+from django.utils import timezone
 
 
 class Shop(models.Model):
@@ -40,7 +39,7 @@ class Shop(models.Model):
         """
         if not self.pk:  # Check if this is a new shop instance
             self.premium_expiration_date = timezone.now() + timedelta(days=7)
-        
+
         if not self.referral:
             if self.custom_referral:
                 self.referral = self.custom_referral

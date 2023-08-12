@@ -6,4 +6,4 @@ class CommonsConfig(AppConfig):
     name = 'commons'
 
     def ready(self):
-        import commons.signals.sale
+        pass

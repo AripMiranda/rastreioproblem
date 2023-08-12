@@ -1,10 +1,10 @@
-from celery import shared_task
-
-from commons.models.sale import Sale
-
 from datetime import timedelta
+
+from celery import shared_task
 from django.utils import timezone
 
+from commons.const import STEPS
+from commons.models.sale import Sale
 from commons.models.tracking import Tracking
 
 
@@ -36,6 +36,7 @@ def next_step(sale):
     Args:
         sale (Sale): The sale instance to which a new tracking step will be added.
     """
-    description = "Sua descrição aqui"
 
+    tracking = sale.sale_tracking.order_by('-updated_at').first()
+    description = STEPS[tracking.description]
     Tracking.objects.create(sale=sale, description=description)

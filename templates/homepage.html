@@ -2,31 +2,33 @@
 
 {% block content %}
     <div class="container mt-5">
-<h1>Welcome to our site!</h1>
-    <section>
-        <h2>Premium Shops</h2>
-        <div class="premium-shops row">
-            {% for shop in premium_shops %}
-            <div class="col-md-2 mb-3">
-                <div class="card">
-                    <a href="{{ shop.url_site|default:'#' }}">
-                        {% if shop.logo %}
-                            <img src="{{ shop.logo.url }}" alt="{{ shop.name }}" style="width: 100px; height: 100px;">
-                        {% else %}
-                            <img src="https://pt.m.wikipedia.org/wiki/Ficheiro:LEGO_logo.svg" alt="{{ shop.name }}" style="width: 100px; height: 100px;">
-                        {% endif %}
-                    </a>
-                </div>
-                </div>
-            {% endfor %}
-        </div>
-    </section>
-    
-    <nav>
-        <ul>
-            <li><a href="{% url 'create_sale' %}">Create Sale</a></li>
-            <li><a href="{% url 'enter_purchase_code' %}">Enter Purchase Code</a></li>
-        </ul>
-    </nav>
-</div>
+        <h1>Welcome to our site!</h1>
+        <section>
+            <h2>Premium Shops</h2>
+            <div class="premium-shops row">
+                {% for shop in premium_shops %}
+                    <div class="col-md-2 mb-3">
+                        <div class="card">
+                            <a href="{{ shop.url_site|default:'#' }}">
+                                {% if shop.logo %}
+                                    <img src="{{ shop.logo.url }}" alt="{{ shop.name }}"
+                                         style="width: 100px; height: 100px;">
+                                {% else %}
+                                    <img src="https://pt.m.wikipedia.org/wiki/Ficheiro:LEGO_logo.svg"
+                                         alt="{{ shop.name }}" style="width: 100px; height: 100px;">
+                                {% endif %}
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <nav>
+            <ul>
+                <li><a href="{% url 'create_sale' %}">Create Sale</a></li>
+                <li><a href="{% url 'enter_purchase_code' %}">Enter Purchase Code</a></li>
+            </ul>
+        </nav>
+    </div>
 {% endblock %}

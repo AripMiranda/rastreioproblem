@@ -1,5 +1,5 @@
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.shortcuts import render, redirect
 
 from commons.const import PRICE_BY_TRACKING
 from commons.models.sale import Sale
