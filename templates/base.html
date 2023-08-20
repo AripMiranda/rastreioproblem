@@ -10,9 +10,10 @@
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
+
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="/">ITracking</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -41,8 +42,10 @@
     {% endblock %}
 </div>
 
-<footer class="bg-light text-center py-3">
-    <p>© 2023 ITracking. All rights reserved.</p>
+<footer class="footer py-3">
+    <div class="container">
+        <p>© {{ year }} ITracking. All rights reserved.</p>
+    </div>
 </footer>
 
 <!-- Bootstrap JS (optional) -->
