@@ -1,34 +1,40 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-    <div class="container mt-5">
-        <h1>Welcome to our site!</h1>
-        <section>
-            <h2>Premium Shops</h2>
-            <div class="premium-shops row">
-                {% for shop in premium_shops %}
-                    <div class="col-md-2 mb-3">
-                        <div class="card">
-                            <a href="{{ shop.url_site|default:'#' }}">
+    <section>
+        <h2 class="mb-4">Lojas Parceiras</h2>
+        <div class="row">
+            {% for shop in premium_shops %}
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 border-0">
+                        <a href="{% url 'shop_details' shop.id %}">
+                            <div class="card-img-top">
                                 {% if shop.logo %}
-                                    <img src="{{ shop.logo.url }}" alt="{{ shop.name }}"
-                                         style="width: 100px; height: 100px;">
+                                    <img src="{{ shop.logo.url }}" alt="{{ shop.name }}" class="img-fluid">
                                 {% else %}
-                                    <img src="https://pt.m.wikipedia.org/wiki/Ficheiro:LEGO_logo.svg"
-                                         alt="{{ shop.name }}" style="width: 100px; height: 100px;">
+                                    <img src="{% static 'images/no-image.png' %}" alt="{{ shop.name }}"
+                                         class="img-fluid">
                                 {% endif %}
-                            </a>
+                            </div>
+                        </a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ shop.name }}</h5>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-        </section>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
-        <nav>
-            <ul>
-                <li><a href="{% url 'create_sale' %}">Novo rastreamento</a></li>
-                <li><a href="{% url 'enter_purchase_code' %}">Rastrear Código</a></li>
-            </ul>
-        </nav>
-    </div>
+    <nav class="mt-5">
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'create_sale' %}">Novo Código</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'enter_purchase_code' %}">Rastrear Código</a>
+            </li>
+        </ul>
+    </nav>
+
 {% endblock %}

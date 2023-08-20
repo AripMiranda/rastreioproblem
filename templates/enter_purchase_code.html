@@ -2,12 +2,11 @@
 
 {% block content %}
     <div class="container mt-5">
-        <h2>Insira o código da sua compra</h2>
+        <h2>Insira o código do pedido que deseja rastear</h2>
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="code">Código:</label>
-                <input type="text" class="form-control" id="code" name="code" required>
+                <input type="text" class="form-control" id="code" name="code" required placeholder="Código">
             </div>
             <button type="submit" class="btn btn-primary">Verificar</button>
         </form>

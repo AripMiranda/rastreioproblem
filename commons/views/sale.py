@@ -28,7 +28,7 @@ def create_sale(request):
     except shop.DoesNotExist:
         return render(request, 'error.html', {'message': 'Loja não encontrada!'})
     sales_count = Sale.objects.filter(shop=shop).count()
-    return render(request, 'store_details.html', {'store': shop, 'sales_count': sales_count})
+    return render(request, 'shop_details.html', {'shop': shop, 'sales_count': sales_count})
 
 
 def generate_sale(request, store_id):

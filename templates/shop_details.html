@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <h2>{{ shop.name }}</h2>
+    <div class="row">
+        <div class="col-md-6">
+            {% if shop.logo %}
+                <img src="{{ shop.logo.url }}" alt="{{ shop.name }}" class="img-fluid">
+            {% else %}
+                <img src="{% static 'images/no-image.png' %}" alt="{{ shop.name }}"
+                     class="img-fluid">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <p>Contato: {{ shop.email }}</p>
+            <p>Site: {{ shop.url_site|default:'Sem referencia de site' }}</p>
+            <p>Pontos Balance: {{ shop.points_balance }}</p>
+            <p>Número de vendas: {{ sales_count }}</p>
+
+            <a href="{% url 'generate_sale' shop.id %}" class="btn btn-primary">Novo código de rastreamento</a>
+            <a href="{% url 'enter_purchase_code' %}" class="btn btn-primary">Rastrear codigo</a>
+
+        </div>
+    </div>
+
+{% endblock %}

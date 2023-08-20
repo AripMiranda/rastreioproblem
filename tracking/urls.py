@@ -21,6 +21,7 @@ from django.urls import path
 
 from commons.views.home import homepage
 from commons.views.sale import create_sale, generate_sale
+from commons.views.shop import shop_details
 from commons.views.tracking import enter_purchase_code, view_purchase_steps
 
 urlpatterns = [
@@ -30,6 +31,7 @@ urlpatterns = [
     path('generate_sale/<int:store_id>/', generate_sale, name='generate_sale'),
     path('enter_code/', enter_purchase_code, name='enter_purchase_code'),
     path('purchase_steps/<int:sale_id>/', view_purchase_steps, name='view_purchase_steps'),
+    path('shop/<int:shop_id>/', shop_details, name='shop_details')
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
