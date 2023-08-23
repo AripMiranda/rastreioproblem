@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+
 from commons.models.profile import Profile
 from commons.models.shop import Shop
 

@@ -14,8 +14,8 @@
         <div class="col-md-6">
             <p>Contato: {{ shop.email }}</p>
             <p>Site: {{ shop.url_site|default:'Sem referencia de site' }}</p>
-{#            <p>Pontos Balance: {{ shop.points_balance }}</p>#}
-{#            <p>Número de vendas: {{ sales_count|default:0 }}</p>#}
+            {#            <p>Pontos Balance: {{ shop.points_balance }}</p>#}
+            {#            <p>Número de vendas: {{ sales_count|default:0 }}</p>#}
 
             <a href="{% url 'generate_sale' shop.id %}" class="btn btn-primary">Novo código de rastreamento</a>
             <a href="{% url 'enter_purchase_code' %}" class="btn btn-primary">Rastrear codigo</a>

@@ -15,4 +15,5 @@ def list_to_dict(lst):
         d[lst[i - 1]] = lst[i]
     return d
 
+
 STEPS = list_to_dict(_steps)

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+
 from commons.models.shop import Shop  # Importe o modelo da loja
 
 
