@@ -3,6 +3,7 @@ import string
 
 from django.db import models
 
+from commons.models.profile import Profile
 from commons.models.shop import Shop
 
 
@@ -19,6 +20,7 @@ class Sale(models.Model):
         - finished: Indicates if the sale has been completed.
     """
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True)
     description = models.TextField(default='', blank=True)
     value = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     sale_date = models.DateTimeField(auto_now_add=True)

@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from commons.models.profile import Profile
 from commons.models.sale import Sale
 from commons.models.shop import Shop
 from commons.models.tracking import Tracking
@@ -26,4 +27,9 @@ class ShopAdmin(admin.ModelAdmin):
 
 @admin.register(Tracking)
 class TrackingAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
     pass

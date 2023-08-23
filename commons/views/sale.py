@@ -1,7 +1,9 @@
 from django.contrib import messages
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, redirect
 
 from commons.const import PRICE_BY_TRACKING
+from commons.models.profile import Profile
 from commons.models.sale import Sale
 from commons.models.shop import Shop
 
@@ -27,11 +29,38 @@ def create_sale(request):
         shop = Shop.objects.get(referral=referral)
     except shop.DoesNotExist:
         return render(request, 'error.html', {'message': 'Loja não encontrada!'})
-    sales_count = Sale.objects.filter(shop=shop).count()
-    return render(request, 'shop_details.html', {'shop': shop, 'sales_count': sales_count})
+
+    return render(request, 'shop_details.html', {'shop': shop})
 
 
-def generate_sale(request, store_id):
+def list_orders(request, profile_id):
+    referral_code = request.GET.get('referral')
+    try:
+        profile = Profile.objects.get(id=profile_id)
+    except Profile.DoesNotExist:
+        return render(request, 'error.html', {'message': 'CPF não encontrado!'})
+
+    orders = Sale.objects.filter(profile=profile)
+
+    return render(request, 'list_orders.html', {'profile': profile, 'orders': orders, 'referral': referral_code})
+
+
+def generate_order_by_profile(request, profile_id):
+    referral = request.GET.get('referral')
+    profile = Profile.objects.get(id=profile_id)
+
+    if not referral:
+        return render(request, 'request_store_code.html')
+
+    try:
+        shop = Shop.objects.get(referral=referral)
+    except shop.DoesNotExist:
+        return render(request, 'error.html', {'message': 'Loja não encontrada!'})
+
+    return redirect('list_orders', profile_id=profile.id)
+
+
+def generate_sale_by_store(request, store_id):
     """
     Generate a sale for a specified store.
 
@@ -60,3 +89,22 @@ def generate_sale(request, store_id):
         sale.save()
         messages.success(request, 'Venda criada com sucesso!')
         return redirect('view_purchase_steps', sale_id=sale.id)
+
+
+def create_order(request, profile_id):
+    try:
+        profile = Profile.objects.get(id=profile_id)
+    except Profile.DoesNotExist:
+        return redirect('create_sale')
+    referral_code = request.GET.get('referral')
+
+    shop = Shop.objects.get(referral=referral_code)
+
+    new_order = Sale.objects.create(
+        shop=shop,
+        profile=profile,
+        value=0,
+        description='',
+    )
+
+    return redirect(redirect('list_orders', profile_id=profile.id).url + f'?referral={referral_code}')
