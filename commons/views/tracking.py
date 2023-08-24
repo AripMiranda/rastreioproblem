@@ -47,6 +47,6 @@ def view_purchase_steps(request, sale_id):
     sale = get_object_or_404(Sale, id=sale_id)
     next_step(sale)
     trackings = sale.sale_tracking.all()
-    print(len(trackings), len(STEPS))
+
     context = {'trackings': trackings, 'sale': sale, 'progress_percentage': (len(trackings) / len(STEPS))*100}
     return render(request, 'view_purchase_steps.html', context)
