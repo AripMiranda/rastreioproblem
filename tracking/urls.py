@@ -26,7 +26,7 @@ from commons.views.shop import shop_details
 from commons.views.tracking import enter_purchase_code, view_purchase_steps
 
 urlpatterns = [
-    path('', homepage, name='homepage'),
+    path('', consult_cpf, name='homepage'),
     path('admin/', admin.site.urls),
     path('order/', consult_cpf, name='create_sale'),
     path('new_order/<int:profile_id>/', create_order, name='create_order'),

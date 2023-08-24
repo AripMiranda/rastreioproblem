@@ -1,13 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class="container mt-5">
-        <h2>Informe o código da loja parceira</h2>
-        <form action="{% url 'create_sale' %}" method="GET">
-            <div class="form-group">
-                <input type="text" name="referral" placeholder="Código da Loja" class="form-control">
-            </div>
-            <button type="submit" class="btn btn-primary">Criar</button>
-        </form>
-    </div>
+    <h2>Informe o código da loja parceira</h2>
+    <form action="{% url 'create_sale' %}" method="GET">
+        <div class="form-group">
+            <input type="text" name="referral" placeholder="Código da Loja" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Criar</button>
+    </form>
 {% endblock %}

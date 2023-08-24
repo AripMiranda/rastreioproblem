@@ -1,16 +1,25 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-    <div class="container mt-5">
-        <h2>Etapas da compra: {{ sale.code }}</h2>
-        <ul class="list-group">
-            {% for tracking in trackings %}
-                <li class="list-group-item">
-                    {{ tracking.description }} - {{ tracking.updated_at|date:"d/m/Y H:i" }}
-                </li>
-            {% empty %}
-                <li class="list-group-item">Nenhuma etapa registrada para esta compra.</li>
-            {% endfor %}
-        </ul>
+    <h2 class="mb-4">Etapas da compra: {{ sale.code }}</h2>
+    <div class="progress-container">
+        <div class="marker-container">
+            <div class="order-marker"><i class="fas fa-shopping-cart fa-2x"></i></div>
+            <div class="truck-marker" style="right: {{ progress_percentage }}%;"><i class="fas fa-truck fa-2x"></i></div>
+            <div class="delivery-house"><i class="fas fa-home fa-2x"></i></div>
+        </div>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: {{ progress_percentage }}%;"
+                 aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
     </div>
+    <ul class="list-group mt-4">
+        {% for tracking in trackings %}
+            <li class="list-group-item">
+                {{ tracking.description }} - {{ tracking.updated_at|date:"d/m/Y H:i" }}
+            </li>
+        {% empty %}
+            <li class="list-group-item">Nenhuma etapa registrada para esta compra.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

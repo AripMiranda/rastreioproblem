@@ -98,19 +98,18 @@ def create_order(request, profile_id):
     referral_code = request.GET.get('referral')
 
     shop = Shop.objects.get(referral=referral_code)
-
+    print(shop.email)
     if shop.points_balance < PRICE_BY_TRACKING:
         messages.error(request, 'A loja não tem pontos suficientes para autorizar a venda.')
-        return render(request, 'error.html', {'message': 'A loja não tem pontos suficientes para autorizar a venda!'})
+        return render(request, 'error.html',
+                      {'message': 'Erro inesperado, favor entrar em contato com administração da loja.',
+                       'contact': shop.email})
     else:
+        sale = Sale.objects.create(shop=shop, profile=profile)
         shop.points_balance -= PRICE_BY_TRACKING
+        print(shop, 'new balance', shop.points_balance)
         shop.save()
-        new_order = Sale.objects.create(
-            shop=shop,
-            profile=profile,
-            value=0,
-            description='',
-        )
+        sale.save()
         messages.success(request, 'Venda criada com sucesso!')
 
     return redirect(redirect('list_orders', profile_id=profile.id).url + f'?referral={referral_code}')

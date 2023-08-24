@@ -32,4 +32,8 @@ class TrackingAdmin(admin.ModelAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('name', 'cpf')
+    list_filter = ('name', 'cpf')
+    search_fields = ('name', 'cpf')
+    ordering = ('-id',)
     pass

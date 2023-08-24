@@ -1,0 +1,47 @@
+/* Estilos para a barra de progresso e marcadores */
+.progress-container {
+    position: relative;
+}
+
+.marker-container {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px; /* Espaçamento entre os marcadores e a barra de progresso */
+}
+
+.order-marker,
+.truck-marker,
+.delivery-house {
+    position: relative;
+    z-index: 2;
+}
+
+.order-marker img,
+.truck-marker img,
+.delivery-house img {
+    width: 30px; /* Ajuste o tamanho das imagens conforme necessário */
+    height: auto;
+}
+
+.truck-marker img {
+    transform: translateX(-50%);
+}
+
+.delivery-house img {
+    transform: translateX(-100%);
+}
+
+.progress {
+    height: 8px;
+}
+
+.progress-bar {
+    background-color: #007bff;
+}
+
+/* Espaçamento entre os itens da lista */
+.list-group-item {
+    margin-bottom: 10px;
+}
