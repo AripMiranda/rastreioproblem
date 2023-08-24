@@ -7,6 +7,7 @@ available_steps = [
     "Pedido a caminho do cliente.",
     "Pedido na cidade do destino.",
     "Pedido na rota de entrega"
+    "Pedido entregue"
 ]
 
 
