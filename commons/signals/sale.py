@@ -1,6 +1,7 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from commons.const import available_steps
 from commons.models.sale import Sale
 from commons.models.tracking import Tracking
 
@@ -23,5 +24,5 @@ def create_initial_tracking(sender, instance, created, **kwargs):
     if created:
         Tracking.objects.create(
             sale=instance,
-            description="Processando pedido"
+            description=available_steps[0]
         )

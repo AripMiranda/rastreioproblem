@@ -1,6 +1,6 @@
 PRICE_BY_TRACKING = 100
 
-_steps = [
+available_steps = [
     "Processando pedido",
     "Objeto Postado",
     "Objeto recebido pelos Correios do Brasil",
@@ -16,4 +16,4 @@ def list_to_dict(lst):
     return d
 
 
-STEPS = list_to_dict(_steps)
+STEPS = list_to_dict(available_steps)
