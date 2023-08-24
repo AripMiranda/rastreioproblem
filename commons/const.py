@@ -1,11 +1,12 @@
 PRICE_BY_TRACKING = 100
 
 available_steps = [
-    "Processando pedido",
-    "Objeto Postado",
-    "Objeto recebido pelos Correios do Brasil",
-    "Fiscalização aduaneira finalizada",
-    "Objeto em trânsito - por favor aguarde",
+    "Pedido sendo separado.",
+    "Pedido coletado.",
+    "Pedido em transporte",
+    "Pedido a caminho do cliente.",
+    "Pedido na cidade do destino.",
+    "Pedido na rota de entrega"
 ]
 
 
