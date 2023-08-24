@@ -99,11 +99,18 @@ def create_order(request, profile_id):
 
     shop = Shop.objects.get(referral=referral_code)
 
-    new_order = Sale.objects.create(
-        shop=shop,
-        profile=profile,
-        value=0,
-        description='',
-    )
+    if shop.points_balance < PRICE_BY_TRACKING:
+        messages.error(request, 'A loja não tem pontos suficientes para autorizar a venda.')
+        return render(request, 'error.html', {'message': 'A loja não tem pontos suficientes para autorizar a venda!'})
+    else:
+        shop.points_balance -= PRICE_BY_TRACKING
+        shop.save()
+        new_order = Sale.objects.create(
+            shop=shop,
+            profile=profile,
+            value=0,
+            description='',
+        )
+        messages.success(request, 'Venda criada com sucesso!')
 
     return redirect(redirect('list_orders', profile_id=profile.id).url + f'?referral={referral_code}')
