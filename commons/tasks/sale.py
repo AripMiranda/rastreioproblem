@@ -3,7 +3,7 @@ from datetime import timedelta
 from celery import shared_task
 from django.utils import timezone
 
-from commons.const import STEPS
+from commons.const import STEPS, available_steps
 from commons.models.sale import Sale
 from commons.models.tracking import Tracking
 
@@ -26,7 +26,7 @@ def update_sales():
         next_step(sale)
 
 
-def next_step(sale):
+def next_step(sale, force=False):
     """
     Adds a new tracking step to the given sale.
 
@@ -38,6 +38,10 @@ def next_step(sale):
     """
 
     tracking = sale.sale_tracking.order_by('-updated_at').first()
-    if tracking and (timezone.now() - tracking.updated_at).days >= 3 and tracking.description in STEPS:
+    if ((tracking and (
+            timezone.now() - tracking.updated_at).days >= 3 and tracking.description in STEPS) or force) and not sale.finished:
         description = STEPS[tracking.description]
         Tracking.objects.create(sale=sale, description=description)
+        if description == available_steps[-1]:
+            sale.finished = True
+            sale.save()

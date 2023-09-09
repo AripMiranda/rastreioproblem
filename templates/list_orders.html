@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Pedidos de {{ profile.user.username }}</h2>
+    <h2>Códigos</h2>
 
     <ul>
         {% for order in orders %}
             <li>
-                Pedido #{{ order.code }} - Valor: R$ {{ order.value }}
+                Pedido #{{ order.code }}
                 <a href="{% url 'view_purchase_steps' order.id %}" class="btn btn-secondary btn-sm">
-                    Detalhes
+                    Ver status do pedido
                 </a>
             </li>
         {% endfor %}
     </ul>
 
     <a href="{% url 'create_order' profile.id %}?referral={{ referral }}" class="btn btn-primary">
-        Novo Pedido
+        Novo Código
     </a>
 {% endblock %}

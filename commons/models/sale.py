@@ -50,7 +50,7 @@ class Sale(models.Model):
         Returns:
             str: The generated code.
         """
-        prefix = ''.join(random.choice(string.ascii_uppercase) for _ in range(2))
+        prefix = 'BR'
         suffix = ''.join(random.choice(string.ascii_uppercase) for _ in range(2))
         code = ''.join(random.choice(string.digits) for _ in range(9))
         return f"{prefix}{code}{suffix}"

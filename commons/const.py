@@ -1,4 +1,4 @@
-PRICE_BY_TRACKING = 100
+PRICE_BY_TRACKING = 1
 
 available_steps = [
     "Pedido sendo separado.",
@@ -6,7 +6,7 @@ available_steps = [
     "Pedido em transporte",
     "Pedido a caminho do cliente.",
     "Pedido na cidade do destino.",
-    "Pedido na rota de entrega"
+    "Pedido na rota de entrega",
     "Pedido entregue"
 ]
 

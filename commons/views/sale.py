@@ -1,10 +1,11 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect
 
-from commons.const import PRICE_BY_TRACKING
+from commons.const import PRICE_BY_TRACKING, available_steps
 from commons.models.profile import Profile
 from commons.models.sale import Sale
 from commons.models.shop import Shop
+from commons.models.tracking import Tracking
 
 
 def create_sale(request):
@@ -73,6 +74,7 @@ def generate_sale_by_store(request, store_id):
     Returns:
         HttpResponse: Redirect to the purchase steps view or store creation view or an error page.
     """
+
     try:
         shop = Shop.objects.get(pk=store_id)
     except shop.DoesNotExist:
@@ -84,8 +86,10 @@ def generate_sale_by_store(request, store_id):
     else:
         sale = Sale.objects.create(shop=shop)
         shop.points_balance -= PRICE_BY_TRACKING
+
         shop.save()
         sale.save()
+
         messages.success(request, 'Venda criada com sucesso!')
         return redirect('view_purchase_steps', sale_id=sale.id)
 
@@ -109,6 +113,9 @@ def create_order(request, profile_id):
         shop.points_balance -= PRICE_BY_TRACKING
         shop.save()
         sale.save()
+        tracking = Tracking.objects.create(sale=sale, description=available_steps[0])
+        tracking.save()
+
         messages.success(request, 'Venda criada com sucesso!')
 
     return redirect(redirect('list_orders', profile_id=profile.id).url + f'?referral={referral_code}')

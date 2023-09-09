@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Solicitar CPF</h2>
+    <h2>Digite seu CPF para consultar seu código de rastreio</h2>
     <form method="post">
         {% csrf_token %}
         <input type="hidden" name="referral" value="{{ referral }}">
