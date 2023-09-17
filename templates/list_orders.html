@@ -1,19 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2>Códigos</h2>
-
-    <ul>
-        {% for order in orders %}
-            <li>
-                Pedido #{{ order.code }}
-                <a href="{% url 'view_purchase_steps' order.id %}" class="btn btn-secondary btn-sm">
-                    Ver status do pedido
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-
-    <a href="{% url 'create_order' profile.id %}?referral={{ referral }}" class="btn btn-primary">
-        Novo Código
-    </a>
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">Lista de Codígos</h2>
+            <ul class="list-group">
+                {% for order in orders %}
+                    <li class="list-group-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="font-weight-bold">Codígo #{{ order.code }}</span>
+                            <a href="{% url 'view_purchase_steps' order.id %}" class="btn btn-outline-primary btn-sm">
+                                Ver Status
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-4">
+            <h2 class="mb-4">Criar Novo Codígo</h2>
+            <a href="{% url 'create_order' profile.id %}?referral={{ referral }}" class="btn btn-success btn-block">
+                <i class="fas fa-plus-circle"></i> Novo Codígo
+            </a>
+        </div>
+    </div>
 {% endblock %}
