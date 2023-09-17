@@ -34,7 +34,8 @@ def next_step(sale, force=False):
     with a predefined description.
 
     Args:
-        sale (Sale): The sale instance to which a new tracking step will be added.
+        :param sale: The sale instance to which a new tracking step will be added.
+        :param force: Force change status
     """
 
     tracking = sale.sale_tracking.order_by('-updated_at').first()

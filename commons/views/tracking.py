@@ -45,8 +45,8 @@ def view_purchase_steps(request, sale_id):
         HttpResponse: Rendered HTML response showing the purchase steps for the given sale.
     """
     sale = get_object_or_404(Sale, id=sale_id)
-    next_step(sale,force=True)
+    next_step(sale)
     trackings = sale.sale_tracking.all()
 
-    context = {'trackings': trackings, 'sale': sale, 'progress_percentage': (len(trackings) / len(STEPS))*100}
+    context = {'trackings': trackings, 'sale': sale, 'progress_percentage': (len(trackings) / len(STEPS)) * 100}
     return render(request, 'view_purchase_steps.html', context)
