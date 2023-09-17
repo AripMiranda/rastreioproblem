@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Relatórios da Loja</h1>
+    <p>Clique no botão abaixo para gerar e baixar o relatório de vendas em formato CSV:</p>
+    <form method="post" action="{% url 'generate_csv_report' shop.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+    </form>
+{% endblock %}

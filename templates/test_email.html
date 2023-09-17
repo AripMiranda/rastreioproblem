@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enviar E-mail</title>
+</head>
+<body>
+<h1>Enviar E-mail</h1>
+<form method="post" action="{% url 'enviar_email' %}">
+    {% csrf_token %}
+    <label for="recipient_list">Destinatários (separe por vírgulas):</label><br>
+    <input type="text" id="recipient_list" name="recipient_list" required><br><br>
+
+    <label for="subject">Assunto:</label><br>
+    <input type="text" id="subject" name="subject" required><br><br>
+
+    <label for="message">Mensagem:</label><br>
+    <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+    <input type="submit" value="Enviar E-mail">
+</form>
+</body>
+</html>

@@ -19,10 +19,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from commons.views.home import homepage
 from commons.views.profile import consult_cpf
 from commons.views.sale import generate_sale_by_store, list_orders, create_order
-from commons.views.shop import shop_details
+from commons.views.shop.details import shop_details
+from commons.views.shop.download_csv import shop_reports, generate_csv_report
+from commons.views.shop.login import shop_login
 from commons.views.tracking import enter_purchase_code, view_purchase_steps
 
 urlpatterns = [
@@ -34,7 +35,10 @@ urlpatterns = [
     path('orders/<int:profile_id>/', list_orders, name='list_orders'),
     path('enter_code/', enter_purchase_code, name='enter_purchase_code'),
     path('purchase_steps/<int:sale_id>/', view_purchase_steps, name='view_purchase_steps'),
-    path('shop/<int:shop_id>/', shop_details, name='shop_details')
+    path('shop/<int:shop_id>/', shop_details, name='shop_details'),
+    path('login/', shop_login, name='shop_login'),
+    path('shop_reports/', shop_reports, name='shop_reports'),
+    path('generate_csv_report/<int:shop_id>/', generate_csv_report, name='generate_csv_report'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -2,6 +2,7 @@ import hashlib
 import uuid
 from datetime import timedelta
 
+from django.contrib.auth.hashers import make_password, check_password
 from django.db import models
 from django.utils import timezone
 
@@ -28,6 +29,31 @@ class Shop(models.Model):
     url_site = models.URLField(blank=True, null=True)
     logo = models.ImageField(upload_to='shop_imgs/', blank=True, null=True)
     premium_expiration_date = models.DateTimeField(blank=True, null=True)
+    password = models.CharField(max_length=128, default="")
+
+    @staticmethod
+    def authenticate(request, email=email, password=password):
+        try:
+            shop = Shop.objects.get(email=email)
+            if check_password(password, shop.password):
+                return shop
+            else:
+                return None
+        except Shop.DoesNotExist:
+            return None
+
+    def set_password(self, password):
+        """
+        Define a senha da loja após o hashing.
+        """
+        self.password = make_password(password)
+
+    def check_password(self, password):
+        """
+        Verifica se a senha fornecida corresponde à senha armazenada.
+        """
+        print(password, self.password)
+        return check_password(password, self.password)
 
     def save(self, *args, **kwargs):
         """
@@ -44,6 +70,9 @@ class Shop(models.Model):
             self.referral = self.make_referral()
         elif self.custom_referral:
             self.referral = self.custom_referral
+
+        if self.password:
+            self.set_password(self.password)
 
         super(Shop, self).save(*args, **kwargs)
 

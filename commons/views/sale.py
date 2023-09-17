@@ -6,6 +6,7 @@ from commons.models.profile import Profile
 from commons.models.sale import Sale
 from commons.models.shop import Shop
 from commons.models.tracking import Tracking
+from commons.tasks.email import send_email
 
 
 def create_sale(request):
@@ -105,6 +106,11 @@ def create_order(request, profile_id):
 
     if shop.points_balance < PRICE_BY_TRACKING:
         messages.error(request, 'A loja não tem pontos suficientes para autorizar a venda.')
+        send_email([Shop.email],
+                   {'subject': 'Notificação de Saldo de pontos',
+                    'message': f'Uma solicitação de rasteio foi feita, mas a loja não possui pontos o suficiente para '
+                               f'concluir, favor entra em contato com administração do site.'})
+
         return render(request, 'error.html',
                       {'message': 'Erro inesperado, favor entrar em contato com administração da loja.',
                        'contact': shop.email})

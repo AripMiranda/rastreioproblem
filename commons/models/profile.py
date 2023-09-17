@@ -11,6 +11,7 @@ class Profile(models.Model):
 
     """
     name = models.CharField(max_length=255, blank=True)
+    email = models.CharField(max_length=255, blank=True)
     cpf = models.CharField(max_length=14, unique=True)
 
     class Meta:
