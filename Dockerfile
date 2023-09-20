@@ -20,5 +20,4 @@ COPY . .
 # Execute as migrações
 RUN python manage.py migrate
 
-# Inicie o servidor web
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+EXPOSE 8000
