@@ -159,3 +159,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mib.noreply.dev@gmail.com'
 EMAIL_HOST_PASSWORD = '+71"s<ktA":\'HvvA'
+DB_USER = 'postgres'
+DB_PASSWORD = 'XzRYChcB1rf9RvSb'
+ec2_user ='deploy'
+ec2_pass = 'xioE4s6N12mY615L'
