@@ -25,16 +25,22 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1  # Substitua pela região AWS correta
+        AWS_REGION: us-east-1
 
     - name: Configure AWS Elastic Beanstalk
       run: |
-        eb init -p python-3.9 YourElasticBeanstalkApplicationName --region us-east-1
-        eb use YourElasticBeanstalkEnvironmentName
+        eb init -p python-3.9 TrackingApp --region us-east-1
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1  # Substitua pela região AWS correta
+        AWS_REGION: us-east-1
+
+    - name: Criar Ambiente Elastic Beanstalk
+      run: eb create TrackingAppEnvironment -c TrackingApp --cname tracking-app
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: us-east-1
 
     - name: Deploy to AWS Elastic Beanstalk
       run: |
@@ -42,4 +48,4 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1  # Substitua pela região AWS correta
+        AWS_REGION: us-east-1
