@@ -1,9 +1,24 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Relatórios da Loja</h1>
-    <p>Clique no botão abaixo para gerar e baixar o relatório de vendas em formato CSV:</p>
-    <form method="post" action="{% url 'generate_csv_report' shop.id %}">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Gerar Relatório</button>
-    </form>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">Bem-vindo, {{ shop.name }}!</h1>
+                        <p class="card-text"><strong>E-mail:</strong> {{ shop.email }}</p>
+                        <p class="card-text"><strong>Saldo de Pontos:</strong> {{ shop.points_balance }}</p>
+                        <!-- Adicione mais informações da loja, como data de criação, URL do site, etc., conforme necessário -->
+                        <hr>
+                        <h3 class="card-title">Relatórios</h3>
+                        <p class="card-text">Clique no botão abaixo para gerar e baixar o relatório de vendas em formato CSV:</p>
+                        <form method="post" action="{% url 'generate_csv_report' shop.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Gerar Relatório</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
