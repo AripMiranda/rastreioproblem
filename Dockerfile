@@ -2,7 +2,7 @@
 FROM python:3.9
 
 # Configure as variáveis de ambiente (altere conforme necessário)
-ENV DJANGO_SETTINGS_MODULE=myproject.settings
+ENV DJANGO_SETTINGS_MODULE=tracking.settings
 ENV DEBUG=False
 
 # Crie o diretório de trabalho

@@ -4,6 +4,23 @@ services:
     build: .
     ports:
       - "8000:8000"
-    command: sh -c "python manage.py makemigrations &&
-      python manage.py migrate &&
-      python manage.py runserver 0.0.0.0:8000"
+    command: >
+      sh -c "python manage.py makemigrations &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    depends_on:
+      - redis
+      - celery_worker
+
+  redis:
+    image: "redis:latest"
+    ports:
+      - "6379:6379"
+
+  celery_worker:
+    build: .
+    command: >
+      sh -c "export PYTHONPATH=/app:$PYTHONPATH &&
+             celery -A tracking worker --loglevel=info"
+    volumes:
+      - .:/app
