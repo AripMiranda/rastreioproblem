@@ -1,60 +1,59 @@
-name: Deploy to AWS Elastic Beanstalk
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-
-    - name: Set up Docker
-      uses: docker/setup-buildx-action@v1
-
-    - name: Build and push Docker image
-      run: |
-        docker build -t tracking-app:latest .
-        echo ${{ secrets.AWS_ACCESS_KEY_ID }} | docker login -u AWS --password-stdin https://${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com
-        docker tag tracking-app:latest ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/tracking-app:latest
-        docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.us-east-1.amazonaws.com/tracking-app:latest
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1
-        AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
-        ECR_REPOSITORY_NAME: tracking-app
-
-
-    - name: Configure AWS Elastic Beanstalk
-      run: |
-        eb init -p docker TrackingApp --region us-east-1
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1
-
-    - name: Create Elastic Beanstalk Environment
-      run: |
-        eb create TrackingAppEnvironment -c TrackingApp --cname tracking-app --instance_type t2.micro --scale 1 --elb-type application
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1
-
-    - name: Deploy Docker image to Elastic Beanstalk
-      run: |
-        eb deploy TrackingAppEnvironment --label tracking-app:latest
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: us-east-1
+#name: Deploy to AWS Elastic Beanstalk
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#
+#jobs:
+#  deploy:
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#    - name: Checkout code
+#      uses: actions/checkout@v2
+#
+#    - name: Set up Python
+#      uses: actions/setup-python@v2
+#      with:
+#        python-version: 3.9
+#
+#    - name: Set up Docker
+#      uses: docker/setup-buildx-action@v1
+#
+#    - name: Build and push Docker image
+#      run: |
+#        docker build -t tracking-app:latest .
+#        docker push tracking-app:latest
+#
+#    - name: Install AWS CLI and EB CLI
+#      run: |
+#        pip install awscli
+#        pip install awsebcli
+#      env:
+#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        AWS_REGION: us-east-1
+#
+#    - name: Configure AWS Elastic Beanstalk
+#      run: |
+#        eb init -p python-3.9 TrackingApp --region us-east-1
+#      env:
+#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        AWS_REGION: us-east-1
+#
+#    - name: Criar Ambiente Elastic Beanstalk
+#      run: eb create TrackingAppEnvironment -c TrackingApp --cname tracking-app
+#      env:
+#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        AWS_REGION: us-east-1
+#
+#    - name: Deploy to AWS Elastic Beanstalk
+#      run: |
+#        eb deploy
+#      env:
+#        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#        AWS_REGION: us-east-1

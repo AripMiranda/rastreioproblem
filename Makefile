@@ -34,9 +34,9 @@ endif
 	@echo "Tudo instalado!"
 
 # Inicia o servidor do Django
-run: check_redis start_redis start_celery start_celery_beat
+run:
 	@echo "Iniciando o servidor Django..."
-	${PYTHON} manage.py runserver
+	${PYTHON} manage.py runserver 0.0.0.0:8000
 
 # Aplica as migrações do Django
 migrations:

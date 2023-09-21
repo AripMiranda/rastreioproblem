@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-nm71gmgco+p)m*9p#^v^8xiwh)vl+-6ihg!hthf(82!k5j)f&2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 def get_redis_port_from_config(config_path="redis.conf"):
@@ -166,7 +166,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mib.noreply.dev@gmail.com'
 EMAIL_HOST_PASSWORD = '+71"s<ktA":\'HvvA'
-DB_USER = 'postgres'
-DB_PASSWORD = 'XzRYChcB1rf9RvSb'
-ec2_user = 'deploy'
-ec2_pass = 'xioE4s6N12mY615L'
