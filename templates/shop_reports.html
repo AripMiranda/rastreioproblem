@@ -11,11 +11,46 @@
                         <!-- Adicione mais informações da loja, como data de criação, URL do site, etc., conforme necessário -->
                         <hr>
                         <h3 class="card-title">Relatórios</h3>
-                        <p class="card-text">Clique no botão abaixo para gerar e baixar o relatório de vendas em formato CSV:</p>
+                        <p class="card-text">Clique no botão abaixo para gerar e baixar o relatório de vendas em formato
+                            CSV:</p>
                         <form method="post" action="{% url 'generate_csv_report' shop.id %}">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-primary">Gerar Relatório</button>
                         </form>
+                        <button id="copyButton" type="button" class="btn btn-primary">Copiar Referral</button>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                // Seletor do botão
+                                var copyButton = document.getElementById('copyButton');
+
+                                // URL que você deseja copiar
+                                var currentHost = window.location.origin;  // Obtém o host atual (ex: http://18.207.114.75)
+                                var urlToCopy = currentHost + "/order/?referral={{ shop.referral }}";
+
+                                // Função para copiar a URL
+                                function copyUrlToClipboard() {
+                                    // Crie um elemento de input oculto
+                                    var input = document.createElement('input');
+                                    input.value = urlToCopy;
+                                    document.body.appendChild(input);
+
+                                    // Selecione o conteúdo do input
+                                    input.select();
+
+                                    // Copie o conteúdo para a área de transferência
+                                    document.execCommand('copy');
+
+                                    // Remova o elemento de input
+                                    document.body.removeChild(input);
+
+                                    // Mensagem de sucesso (opcional)
+                                    alert('URL copiada para a área de transferência: ' + urlToCopy);
+                                }
+
+                                // Adicione um ouvinte de evento ao botão
+                                copyButton.addEventListener('click', copyUrlToClipboard);
+                            });
+                        </script>
                     </div>
                 </div>
             </div>
