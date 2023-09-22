@@ -1,3 +1,6 @@
+from django.contrib.auth.models import AbstractUser
+from django.db import models
+from django.utils import timezone
 import hashlib
 import uuid
 from datetime import timedelta
@@ -20,6 +23,7 @@ class Shop(models.Model):
         - custom_referral: A custom referral code that can be set manually.
         - points_balance: The balance of points associated with the shop.
     """
+
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     created_date = models.DateTimeField(auto_now_add=True)
