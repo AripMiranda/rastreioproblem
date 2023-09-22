@@ -39,7 +39,8 @@ class Shop(models.Model):
     def authenticate(request, email=email, password=password):
         try:
             shop = Shop.objects.get(email=email)
-            if check_password(password, shop.password):
+
+            if shop.check_password(password):
                 return shop
             else:
                 return None
@@ -50,12 +51,14 @@ class Shop(models.Model):
         """
         Define a senha da loja após o hashing.
         """
+        print(make_password(password))
         self.password = make_password(password)
 
     def check_password(self, password):
         """
         Verifica se a senha fornecida corresponde à senha armazenada.
         """
+        print(password, self.password)
         return check_password(password, self.password)
 
     def save(self, *args, **kwargs):
@@ -73,11 +76,19 @@ class Shop(models.Model):
             self.referral = self.make_referral()
         elif self.custom_referral:
             self.referral = self.custom_referral
-
-        if self.password == "":
-            self.set_password(self.password)
+        if self.password:
+            if not self.id or (self.id and self.password != self._get_password()):
+                self.set_password(self.password)
 
         super(Shop, self).save(*args, **kwargs)
+
+    def _get_password(self):
+        """
+        Retrieve the password from the database for comparison.
+        """
+        if self.id:
+            return Shop.objects.values_list('password', flat=True).get(id=self.id)
+        return None
 
     def __str__(self):
         """
