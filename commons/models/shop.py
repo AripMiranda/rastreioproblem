@@ -52,7 +52,6 @@ class Shop(models.Model):
         """
         Verifica se a senha fornecida corresponde à senha armazenada.
         """
-        print(password, self.password)
         return check_password(password, self.password)
 
     def save(self, *args, **kwargs):
@@ -71,7 +70,7 @@ class Shop(models.Model):
         elif self.custom_referral:
             self.referral = self.custom_referral
 
-        if self.password:
+        if self.password == "":
             self.set_password(self.password)
 
         super(Shop, self).save(*args, **kwargs)
