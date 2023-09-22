@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="tracking@tracking-app-rds.cz1snkxjiums.us-east-1.rds.amazonaws.com" uuid="1905975d-70f4-47b2-9c53-f6122ef216e9">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://tracking-app-rds.cz1snkxjiums.us-east-1.rds.amazonaws.com:5432/tracking</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+  </component>
+</project>
