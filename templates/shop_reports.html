@@ -5,19 +5,27 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="card-title">Bem-vindo, {{ shop.name }}!</h1>
-                        <p class="card-text"><strong>E-mail:</strong> {{ shop.email }}</p>
-                        <p class="card-text"><strong>Saldo de Pontos:</strong> {{ shop.points_balance }}</p>
+                        <h1 class="card-title display-4 text-primary">Bem-vindo, {{ shop.name }}!</h1>
+                        <p class="lead"><strong>E-mail:</strong> {{ shop.email }}</p>
+                        <p class="lead"><strong>Saldo de Pontos:</strong> {{ shop.points_balance }}</p>
                         <!-- Adicione mais informações da loja, como data de criação, URL do site, etc., conforme necessário -->
                         <hr>
-                        <h3 class="card-title">Relatórios</h3>
-                        <p class="card-text">Clique no botão abaixo para gerar e baixar o relatório de vendas em formato
-                            CSV:</p>
-                        <form method="post" action="{% url 'generate_csv_report' shop.id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-primary">Gerar Relatório</button>
-                        </form>
-                        <button id="copyButton" type="button" class="btn btn-primary">Copiar Referral</button>
+                        <section>
+                            <h2 class="card-title display-5">Relatórios</h2>
+                            <p class="lead">Clique no botão abaixo para gerar e baixar o relatório de vendas em formato
+                                CSV:</p>
+                            <form method="post" action="{% url 'generate_csv_report' shop.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary btn-lg">Gerar Relatório</button>
+                            </form>
+                        </section>
+                        <section class="mt-4">
+                            <h2 class="card-title display-5">Referral</h2>
+                            <p class="lead">Clique no botão abaixo para copiar seu link de referência:</p>
+                            <button id="copyButton" type="button" class="btn btn-primary btn-lg">Copiar Link de
+                                Referência
+                            </button>
+                        </section>
                         <script>
                             document.addEventListener('DOMContentLoaded', function () {
                                 // Seletor do botão
@@ -44,7 +52,7 @@
                                     document.body.removeChild(input);
 
                                     // Mensagem de sucesso (opcional)
-                                    alert('URL copiada para a área de transferência: ' + urlToCopy);
+                                    alert('Link de referência copiado: ' + urlToCopy);
                                 }
 
                                 // Adicione um ouvinte de evento ao botão
