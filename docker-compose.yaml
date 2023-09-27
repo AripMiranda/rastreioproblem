@@ -24,3 +24,11 @@ services:
              celery -A tracking worker --loglevel=info"
     volumes:
       - .:/app
+
+  celery_beat:
+    build: .
+    command: >
+      sh -c "export PYTHONPATH=/app:$PYTHONPATH &&
+             celery -A tracking beat --loglevel=info"
+    volumes:
+      - .:/app

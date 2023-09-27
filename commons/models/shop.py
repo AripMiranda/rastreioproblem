@@ -1,6 +1,3 @@
-from django.contrib.auth.models import AbstractUser
-from django.db import models
-from django.utils import timezone
 import hashlib
 import uuid
 from datetime import timedelta
@@ -51,14 +48,12 @@ class Shop(models.Model):
         """
         Define a senha da loja após o hashing.
         """
-        print(make_password(password))
         self.password = make_password(password)
 
     def check_password(self, password):
         """
         Verifica se a senha fornecida corresponde à senha armazenada.
         """
-        print(password, self.password)
         return check_password(password, self.password)
 
     def save(self, *args, **kwargs):

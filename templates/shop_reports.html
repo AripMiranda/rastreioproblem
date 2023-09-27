@@ -8,7 +8,6 @@
                         <h1 class="card-title display-4 text-primary">Bem-vindo, {{ shop.name }}!</h1>
                         <p class="lead"><strong>E-mail:</strong> {{ shop.email }}</p>
                         <p class="lead"><strong>Saldo de Pontos:</strong> {{ shop.points_balance }}</p>
-                        <!-- Adicione mais informações da loja, como data de criação, URL do site, etc., conforme necessário -->
                         <hr>
                         <section>
                             <h2 class="card-title display-5">Relatórios</h2>
@@ -28,34 +27,25 @@
                         </section>
                         <script>
                             document.addEventListener('DOMContentLoaded', function () {
-                                // Seletor do botão
                                 var copyButton = document.getElementById('copyButton');
 
-                                // URL que você deseja copiar
-                                var currentHost = window.location.origin;  // Obtém o host atual (ex: http://18.207.114.75)
+                                var currentHost = window.location.origin;
                                 var urlToCopy = currentHost + "/order/?referral={{ shop.referral }}";
 
-                                // Função para copiar a URL
                                 function copyUrlToClipboard() {
-                                    // Crie um elemento de input oculto
                                     var input = document.createElement('input');
                                     input.value = urlToCopy;
                                     document.body.appendChild(input);
 
-                                    // Selecione o conteúdo do input
                                     input.select();
 
-                                    // Copie o conteúdo para a área de transferência
                                     document.execCommand('copy');
 
-                                    // Remova o elemento de input
                                     document.body.removeChild(input);
 
-                                    // Mensagem de sucesso (opcional)
                                     alert('Link de referência copiado: ' + urlToCopy);
                                 }
 
-                                // Adicione um ouvinte de evento ao botão
                                 copyButton.addEventListener('click', copyUrlToClipboard);
                             });
                         </script>
