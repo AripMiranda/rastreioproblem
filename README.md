@@ -39,13 +39,15 @@ sudo dnf install redis
 
 ## Configuração do Ambiente Virtual
 
-Este projeto utiliza um ambiente virtual para isolar as dependências do Python. Você pode criar o ambiente virtual e instalar as dependências executando o seguinte comando:
+Este projeto utiliza um ambiente virtual para isolar as dependências do Python. Você pode criar o ambiente virtual e
+instalar as dependências executando o seguinte comando:
 
 ```bash
 make install
 ```
 
-Isso criará um ambiente virtual na pasta `venv`, atualizará o `pip` e instalará todas as dependências listadas no arquivo `requirements.txt`.
+Isso criará um ambiente virtual na pasta `venv`, atualizará o `pip` e instalará todas as dependências listadas no
+arquivo `requirements.txt`.
 
 ## Executando o Servidor Django
 
@@ -69,7 +71,9 @@ Este comando criará migrações para as alterações no modelo de banco de dado
 
 ## Uso do Celery com Redis
 
-Este projeto utiliza o Celery para tarefas assíncronas e agendadas. O Celery requer um servidor Redis para funcionar corretamente. Certifique-se de que o Redis esteja em execução (ou utilize `make start_redis` para iniciá-lo) antes de utilizar o Celery.
+Este projeto utiliza o Celery para tarefas assíncronas e agendadas. O Celery requer um servidor Redis para funcionar
+corretamente. Certifique-se de que o Redis esteja em execução (ou utilize `make start_redis` para iniciá-lo) antes de
+utilizar o Celery.
 
 ### Iniciando o Celery Worker
 
@@ -91,7 +95,8 @@ make start_celery_beat
 
 Isso iniciará o Celery Beat com o agendamento de tarefas especificado em seu projeto.
 
-Lembre-se de que você deve executar o Celery Worker e o Celery Beat em instâncias separadas ou em terminais separados para que o sistema de filas e agendamento funcione corretamente.
+Lembre-se de que você deve executar o Celery Worker e o Celery Beat em instâncias separadas ou em terminais separados
+para que o sistema de filas e agendamento funcione corretamente.
 
 ## Estrutura de Arquivos
 

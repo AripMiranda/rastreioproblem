@@ -12,9 +12,16 @@ OS := $(shell uname -s)
 # Comandos padrões
 .PHONY: install run migrations check_redis start_redis start_celery start_celery_beat
 
+install-venv:
+	@echo "Instalando python3-venv..."
+ifeq ($(OS),Darwin)
+	brew install python3-venv
+else ifeq ($(OS),Linux)
+	if [ -f /etc/lsb-release ] || [ -f /etc/debian_version ]; then sudo apt update && sudo apt install python3-venv; elif [ -f /etc/redhat-release ]; then sudo dnf install python3-venv; fi
+endif
 
 # Instala todas as dependências
-install:
+install: install-venv
 	@echo "Criando ambiente virtual..."
 	python3 -m venv ${VENV_NAME}
 	@echo "Instalando dependências..."

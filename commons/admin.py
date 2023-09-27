@@ -22,6 +22,8 @@ class ShopAdmin(admin.ModelAdmin):
     list_display = ('name', 'email', 'points_balance', 'referral', 'custom_referral', 'created_date')
     list_filter = ('name', 'created_date')
     search_fields = ('name', 'email', 'referral')
+    readonly_fields = ('password',)
+
     ordering = ('-created_date',)
 
 

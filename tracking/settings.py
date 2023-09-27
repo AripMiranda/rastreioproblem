@@ -37,7 +37,7 @@ def get_redis_port_from_config(config_path="redis.conf"):
 
 
 REDIS_PORT = get_redis_port_from_config()
-# settings.py
+
 CELERY_BROKER_URL = 'redis://redis:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 CELERY_ACCEPT_CONTENT = ['json']
@@ -49,7 +49,7 @@ CELERY_TIMEZONE = 'UTC'
 CELERY_BEAT_SCHEDULE = {
     'update_sales': {
         'task': 'commons.tasks.sale.update_sales',
-        'schedule': timedelta(seconds=1),
+        'schedule': timedelta(minutes=30),
     },
 }
 
@@ -64,6 +64,7 @@ INSTALLED_APPS = [
 
 CUSTOM_APPS = [
     'commons',
+    'api',
     'django_celery_beat'
 
 ]
@@ -105,6 +106,11 @@ WSGI_APPLICATION = 'tracking.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+} if os.path.isfile('local.env') else {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "tracking",
@@ -114,7 +120,6 @@ DATABASES = {
         "PORT": "5432",
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

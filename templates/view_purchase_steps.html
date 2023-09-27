@@ -4,23 +4,32 @@
     <h2 class="mb-4">Etapas da compra: {{ sale.code }}</h2>
     <div class="progress-container">
         <div class="marker-container">
-            <div class="order-marker"><i class="fas fa-shopping-cart fa-2x"></i></div>
-            <div class="truck-marker" style="left: {{ progress_percentage }}%;"><i class="fas fa-truck fa-2x"></i></div>
-            <div class="delivery-house"><i class="fas fa-home fa-2x"></i></div>
+            <div class="order-marker"><i class="fas fa-shopping-cart fa-2x text-primary"></i></div>
+            <div class="truck-marker" style="left: {{ progress_percentage }}%;"><i
+                    class="fas fa-truck fa-2x text-warning"></i></div>
+            <div class="delivery-house"><i class="fas fa-home fa-2x text-success"></i></div>
         </div>
         <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: {{ progress_percentage }}%;"
+            <div class="progress-bar bg-info" role="progressbar" style="width: {{ progress_percentage }}%;"
                  aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
     </div>
-    {{ progress_percentage }}
+    <p class="mt-4">CPF do comprador: {{ sale.profile.cpf }}</p>
     <ul class="list-group mt-4">
         {% for tracking in trackings %}
             <li class="list-group-item">
                 {{ tracking.description }} - {{ tracking.updated_at|date:"d/m/Y H:i" }}
             </li>
         {% empty %}
-            <li class="list-group-item">Nenhuma etapa registrada para esta compra.</li>
+            <li class="list-group-item alert alert-warning">Nenhuma etapa registrada para esta compra.</li>
         {% endfor %}
     </ul>
+    <script>
+        // Ajuste a posição do marcador com base na porcentagem de progresso
+        const progressPercentage = {{ progress_percentage }};
+        const truckMarker = document.querySelector(".truck-marker");
+        if (truckMarker) {
+            truckMarker.style.left = `${progressPercentage}%`;
+        }
+    </script>
 {% endblock %}

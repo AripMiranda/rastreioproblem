@@ -9,31 +9,6 @@ from commons.models.tracking import Tracking
 from commons.tasks.email import send_email
 
 
-def create_sale(request):
-    """
-    Render the store details based on the referral code passed in the request.
-
-    If no referral code is provided, prompt the user to input it.
-    If a store with the provided referral code does not exist, display an error.
-
-    Args:
-        request (HttpRequest): The request object.
-
-    Returns:
-        HttpResponse: Rendered HTML response for store details, request for store code or error page.
-    """
-    referral = request.GET.get('referral')
-    if not referral:
-        return render(request, 'request_store_code.html')
-
-    try:
-        shop = Shop.objects.get(referral=referral)
-    except shop.DoesNotExist:
-        return render(request, 'error.html', {'message': 'Loja não encontrada!'})
-
-    return render(request, 'shop_details.html', {'shop': shop})
-
-
 def list_orders(request, profile_id):
     referral_code = request.GET.get('referral')
     try:
@@ -44,21 +19,6 @@ def list_orders(request, profile_id):
     orders = Sale.objects.filter(profile=profile)
 
     return render(request, 'list_orders.html', {'profile': profile, 'orders': orders, 'referral': referral_code})
-
-
-def generate_order_by_profile(request, profile_id):
-    referral = request.GET.get('referral')
-    profile = Profile.objects.get(id=profile_id)
-
-    if not referral:
-        return render(request, 'request_store_code.html')
-
-    try:
-        shop = Shop.objects.get(referral=referral)
-    except shop.DoesNotExist:
-        return render(request, 'error.html', {'message': 'Loja não encontrada!'})
-
-    return redirect('list_orders', profile_id=profile.id)
 
 
 def generate_sale_by_store(request, store_id):
