@@ -2,7 +2,7 @@
 {% block content %}
     <div class="row">
         <div class="col-md-8">
-            <h2 class="mb-4">Lista de Codígos</h2>
+            <h2 class="mb-4">Seu Codígo</h2>
             <ul class="list-group">
                 {% for order in orders %}
                     <li class="list-group-item">
@@ -16,5 +16,12 @@
                 {% endfor %}
             </ul>
         </div>
+        {% if not orders %}
+            <div class="col-md-4">
+                <a href="{% url 'create_order' profile.id %}?referral={{ referral }}" class="btn btn-success btn-block">
+                    <i class="fas fa-plus-circle"></i> Obter seu código
+                </a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
