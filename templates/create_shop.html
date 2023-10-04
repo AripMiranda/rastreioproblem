@@ -1,11 +1,59 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="container">
+    <div class="register-container">
         <h2>Cadastrar Nova Loja</h2>
-        <form method="post" enctype="multipart/form-data">
+
+        <form method="post" enctype="multipart/form-data" class="register-form">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <div class="form-content">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
         </form>
     </div>
+
+    <style>
+        .register-container {
+            max-width: 600px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .register-form .form-content {
+            margin-bottom: 20px;
+        }
+
+        .register-form button.btn-success {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .register-form button.btn-success:hover {
+            background-color: #218838;
+        }
+
+        .form-content p {
+            margin-bottom: 10px;
+        }
+
+        .form-content label {
+            font-weight: bold;
+        }
+
+        .form-content input,
+        .form-content select {
+            width: calc(100% - 22px);
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
 {% endblock %}

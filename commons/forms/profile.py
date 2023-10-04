@@ -13,6 +13,5 @@ class ProfileCreationForm(forms.ModelForm):
     def clean_cpf(self):
         cpf = self.cleaned_data['cpf']
         if not CPF().validate(cpf):
-            print('cpf cagado')
             raise ValidationError('CPF inválido')
         return cpf

@@ -5,3 +5,4 @@ redis>=3.5.3
 Pillow
 psycopg2-binary
 validate_docbr
+pandas
