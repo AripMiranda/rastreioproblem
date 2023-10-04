@@ -43,6 +43,7 @@ endif
 # Inicia o servidor do Django
 run:
 	@echo "Iniciando o servidor Django..."
+	sudo /sbin/iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-port 8000
 	${PYTHON} manage.py runserver 0.0.0.0:8000
 
 # Aplica as migrações do Django

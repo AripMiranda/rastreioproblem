@@ -1,21 +1,87 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Login do Lojista</h1>
+    <div class="login-container">
+        <h1>Login do Lojista</h1>
 
-    {% if error_message %}
-        <p>{{ error_message }}</p>
-    {% endif %}
+        {% if error_message %}
+            <div class="error-message">
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
 
-    <form method="post">
-        {% csrf_token %}
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-        <label for="password">Senha:</label>
-        <input type="password" id="password" name="password" required><br><br>
+            <div class="form-group">
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
 
-        <input type="submit" value="Login">
-    </form>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary">
+            </div>
+        </form>
 
-    <p>Não tem uma conta? <a href="{% url 'shop_create' %}">Criar Conta</a></p>
+        <p class="register-link">Não tem uma conta? <a href="{% url 'shop_create' %}">Criar Conta</a></p>
+    </div>
+
+    <style>
+        .login-container {
+            max-width: 500px;
+            margin: auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .login-form .form-group {
+            margin-bottom: 15px;
+        }
+
+        .login-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .login-form input[type="email"],
+        .login-form input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message p {
+            color: red;
+            background-color: #f8d7da;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 4px;
+        }
+
+        .register-link {
+            margin-top: 15px;
+            display: block;
+            text-align: center;
+        }
+    </style>
 {% endblock %}

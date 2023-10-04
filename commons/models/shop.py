@@ -85,6 +85,19 @@ class Shop(models.Model):
             return Shop.objects.values_list('password', flat=True).get(id=self.id)
         return None
 
+    def has_sufficient_balance(self, cpf_count, cost_per_cpf):
+        """
+        Verifica se a loja tem saldo suficiente para processar os CPFs.
+
+        Args:
+        - cpf_count: O número de CPFs a serem processados.
+        - cost_per_cpf: O custo em pontos para processar um CPF.
+
+        Returns:
+        - bool: True se tiver saldo suficiente, False caso contrário.
+        """
+        return self.points_balance >= cpf_count * cost_per_cpf
+
     def __str__(self):
         """
         String representation of the shop instance.

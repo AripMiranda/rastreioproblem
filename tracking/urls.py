@@ -25,6 +25,7 @@ from commons.views.shop.create import create_shop
 from commons.views.shop.details import shop_details
 from commons.views.shop.download_csv import shop_reports, generate_csv_report
 from commons.views.shop.login import shop_login
+from commons.views.shop.upload_csv import upload_csv
 from commons.views.tracking import enter_purchase_code, view_purchase_steps
 
 urlpatterns = [
@@ -40,6 +41,7 @@ urlpatterns = [
     path('login/', shop_login, name='shop_login'),
     path('shop_reports/', shop_reports, name='shop_reports'),
     path('generate_csv_report/<int:shop_id>/', generate_csv_report, name='generate_csv_report'),
+    path('upload/<int:shop_id>/', upload_csv, name='massive_code'),
     path('create_shop/', create_shop, name='shop_create'),
 ]
 
