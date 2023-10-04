@@ -125,3 +125,18 @@ drop-app:
 	sudo systemctl daemon-reload
 	sudo systemctl reset-failed
 	@echo "O serviço da aplicação foi removido com sucesso."
+
+
+ssl:
+	# Instalar o Certbot
+	sudo apt-get update
+	sudo apt-get install -y software-properties-common
+	sudo add-apt-repository ppa:certbot/certbot -y
+	sudo apt-get update
+	sudo apt-get install -y certbot python-certbot-nginx
+
+	# Obter o certificado SSL usando o Certbot
+	sudo certbot --nginx
+
+	# Configurar a renovação automática do certificado SSL
+	echo "0 0,12 * * * root python -c 'import random; import time; time.sleep(random.random() * 3600)' && certbot renew -q" | sudo tee -a /etc/crontab > /dev/null

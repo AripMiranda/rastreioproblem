@@ -1,62 +1,93 @@
 {% extends "base.html" %}
 {% block content %}
-<style>
-    .container {
-        max-width: 90%;
-    }
+    <style>
+        .container {
+            max-width: 90%;
+        }
 
-    .card {
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        border: none;
-    }
+        .card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: none;
+        }
 
-    .btn {
-        border-radius: 5px;
-    }
+        .btn {
+            border-radius: 5px;
+        }
 
-    .btn-primary {
-        background-color: #007bff;
-    }
+        .btn-primary {
+            background-color: #007bff;
+        }
 
-    .btn-secondary {
-        background-color: #6c757d;
-    }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
 
-    h2 {
-        color: #007bff;
-    }
-</style>
+        h2 {
+            color: #007bff;
+        }
+    </style>
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-body">
-            <h1 class="card-title text-primary">Bem-vindo, {{ shop.name }}!</h1>
-            <p><strong>E-mail:</strong> {{ shop.email }}</p>
-            <p><strong>Saldo de Pontos:</strong> {{ shop.points_balance }}</p>
-            <hr>
-            <section>
-                <h2>Relatórios</h2>
-                <p>Clique no botão abaixo para gerar e baixar o relatório de vendas em formato CSV:</p>
-                <form method="post" action="{% url 'generate_csv_report' shop.id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-primary btn-lg">Gerar Relatório</button>
-                </form>
-            </section>
-            <section class="mt-4">
-                <h2>Referral</h2>
-                <p>Clique no botão abaixo para copiar seu link de referência:</p>
-                <button id="copyButton" type="button" class="btn btn-primary btn-lg">Copiar Link de Referência</button>
-            </section>
-            <section class="mt-4">
-                <h2>Upload de CSV</h2>
-                <p>Clique no botão abaixo para fazer o upload de um arquivo CSV para processamento:</p>
-                <a href="{% url 'massive_code' shop.id %}" class="btn btn-secondary btn-lg">Upload de CSV</a>
-            </section>
+    <div class="container mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title text-primary">Bem-vindo, {{ shop.name }}!</h1>
+                <p><strong>E-mail:</strong> {{ shop.email }}</p>
+                <p><strong>Saldo de Pontos:</strong> {{ shop.points_balance }}</p>
+                <hr>
+                <section>
+                    <h2>Relatórios</h2>
+                    <p>Clique no botão abaixo para gerar e baixar o relatório de vendas em formato CSV:</p>
+                    <form method="post" action="{% url 'generate_csv_report' shop.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary btn-lg">Gerar Relatório</button>
+                    </form>
+                </section>
+                <section class="mt-4">
+                    <h2>Referral</h2>
+                    <p>Clique no botão abaixo para copiar seu link de referência:</p>
+                    <button id="copyButton" type="button" class="btn btn-primary btn-lg">Copiar Link de Referência
+                    </button>
+                </section>
+                <section class="mt-4">
+                    <h2>Upload de CSV</h2>
+                    <p>Clique no botão abaixo para fazer o upload de um arquivo CSV para processamento:</p>
+                    <a href="{% url 'massive_code' shop.id %}" class="btn btn-secondary btn-lg">Upload de CSV</a>
+                </section>
+            </div>
         </div>
-    </div>
 
-    <script>
-        /* seu script JS aqui */
-    </script>
-</div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                // Seletor do botão
+                var copyButton = document.getElementById('copyButton');
+
+                // URL que você deseja copiar
+                var currentHost = window.location.origin;  // Obtém o host atual (ex: http://18.207.114.75)
+                var urlToCopy = currentHost + "/order/?referral={{ shop.referral }}";
+
+                // Função para copiar a URL
+                function copyUrlToClipboard() {
+                    // Crie um elemento de input oculto
+                    var input = document.createElement('input');
+                    input.value = urlToCopy;
+                    document.body.appendChild(input);
+
+                    // Selecione o conteúdo do input
+                    input.select();
+
+                    // Copie o conteúdo para a área de transferência
+                    document.execCommand('copy');
+
+                    // Remova o elemento de input
+                    document.body.removeChild(input);
+
+                    // Mensagem de sucesso (opcional)
+                    alert('Link de referência copiado: ' + urlToCopy);
+                }
+
+                // Adicione um ouvinte de evento ao botão
+                copyButton.addEventListener('click', copyUrlToClipboard);
+            });
+        </script>
+    </div>
 {% endblock %}
