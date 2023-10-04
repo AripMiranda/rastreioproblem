@@ -45,7 +45,7 @@ configure:
 	${PYTHON} manage.py makemigrations
 	${PYTHON} manage.py migrate
 	@echo "Configurando NGINX..."
-	sudo cp . /etc/nginx/sites-available/project-tracking-code
+	sudo cp ../mega-rasteio /etc/nginx/sites-available/project-tracking-code
 	sudo ln -s /etc/nginx/sites-available/project-tracking-code /etc/nginx/sites-enabled
 	sudo nginx -t
 	@echo "Configuração completa!"
