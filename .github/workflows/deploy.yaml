@@ -40,5 +40,4 @@ jobs:
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         application_name: mega-rastreio  # Substitua pelo nome da sua aplicação
         environment_name: mega-rastreio-dev  # Substitua pelo nome do seu ambiente
-        version_label: ${{ github.run_id }}
         region: us-east-1  # Substitua pela sua região AWS
