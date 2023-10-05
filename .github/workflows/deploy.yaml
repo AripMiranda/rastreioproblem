@@ -30,8 +30,8 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         AWS_REGION: us-east-1
 
-    - name: Build and push Docker image
-      run: ./build.sh
+#    - name: Build and push Docker image
+#      run: ./build.sh
 
     - name: Configure AWS Elastic Beanstalk
       run: |
