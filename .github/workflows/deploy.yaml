@@ -38,7 +38,7 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Substitua pelos seus secrets AWS
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: tracking-app  # Substitua pelo nome da sua aplicação
-        environment_name: tracking-env  # Substitua pelo nome do seu ambiente
+        application_name: mega-rastreio  # Substitua pelo nome da sua aplicação
+        environment_name: mega-rastreio-dev  # Substitua pelo nome do seu ambiente
         version_label: ${{ github.run_id }}
         region: us-east-1  # Substitua pela sua região AWS
