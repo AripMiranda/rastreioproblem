@@ -1,16 +1,22 @@
 version: "3"
 services:
+  nginx:
+    image: nginx:latest
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # Montar o arquivo de configuração do Nginx
+      - static-volume:/usr/share/nginx/html/static  # Montar o volume de arquivos estáticos
+    ports:
+      - "80:80"  # Expor a porta 80
   web:
     build: .
-    ports:
-      - "8000:8000"
     command: >
-      sh -c "python manage.py makemigrations &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+      sh -c "gunicorn -b 0.0.0.0:8000 tracking.wsgi:application"
     depends_on:
       - redis
       - celery_worker
+    volumes:
+      - .:/app
+      - static-volume:/app/staticfiles
 
   redis:
     image: "redis:latest"
@@ -20,15 +26,15 @@ services:
   celery_worker:
     build: .
     command: >
-      sh -c "export PYTHONPATH=/app:$PYTHONPATH &&
-             celery -A tracking worker --loglevel=info"
+      sh -c "celery -A tracking worker --loglevel=info"
     volumes:
       - .:/app
 
   celery_beat:
     build: .
     command: >
-      sh -c "export PYTHONPATH=/app:$PYTHONPATH &&
-             celery -A tracking beat --loglevel=info"
+      sh -c "celery -A tracking beat --loglevel=info"
     volumes:
       - .:/app
+volumes:
+  static-volume:

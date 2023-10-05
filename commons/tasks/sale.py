@@ -21,7 +21,7 @@ def update_sales():
     """
     threshold_date = timezone.now() - timedelta(days=3)
 
-    sales_to_update = Sale.objects.filter(done=False).exclude(sale_tracking__update__gte=threshold_date)
+    sales_to_update = Sale.objects.filter(finished=False).exclude(sale_tracking__update__gte=threshold_date)
 
     for sale in sales_to_update:
         next_step(sale)

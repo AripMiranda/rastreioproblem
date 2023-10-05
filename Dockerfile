@@ -4,6 +4,7 @@ FROM python:3.9
 # Configure as variáveis de ambiente (altere conforme necessário)
 ENV DJANGO_SETTINGS_MODULE=tracking.settings
 ENV DEBUG=False
+ENV PYTHONPATH=/app
 
 # Crie o diretório de trabalho
 WORKDIR /app
@@ -19,5 +20,7 @@ COPY . .
 
 # Execute as migrações
 RUN python manage.py migrate
+RUN python manage.py collectstatic --noinput
 
-EXPOSE 8000
+# Alterar a porta para 80, se necessário
+EXPOSE 80
