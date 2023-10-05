@@ -20,7 +20,7 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: my-ecr-repo  # Substitua pelo nome do seu repositório ECR
+        ECR_REPOSITORY: 131643625257.dkr.ecr.us-east-1.amazonaws.com/tracking-ecr
         IMAGE_TAG: latest
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -31,9 +31,9 @@ jobs:
       with:
         aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Substitua pelos seus secrets AWS
         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        application_name: my-app  # Substitua pelo nome da sua aplicação
-        environment_name: my-env  # Substitua pelo nome do seu ambiente
+        application_name: tracking-app  # Substitua pelo nome da sua aplicação
+        environment_name: tracking-env  # Substitua pelo nome do seu ambiente
         version_label: ${{ github.run_id }}
         region: us-east-1  # Substitua pela sua região AWS
-        s3_bucket: my-bucket  # Substitua pelo seu bucket S3
+        s3_bucket: elasticbeanstalk-us-east-1-131643625257  # Substitua pelo seu bucket S3
         zip_file: file.zip  # Substitua pelo nome do seu arquivo zip
