@@ -42,5 +42,3 @@ jobs:
         environment_name: tracking-env  # Substitua pelo nome do seu ambiente
         version_label: ${{ github.run_id }}
         region: us-east-1  # Substitua pela sua região AWS
-        s3_bucket: elasticbeanstalk-us-east-1-131643625257  # Substitua pelo seu bucket S3
-        zip_file: file.zip  # Substitua pelo nome do seu arquivo zip
