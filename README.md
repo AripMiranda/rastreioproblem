@@ -100,4 +100,4 @@ para que o sistema de filas e agendamento funcione corretamente.
 
 ## Estrutura de Arquivos
 
-O projeto possui um aplicativo chamado `commons`, além de algumas pastas auxiliares que compõem o projeto.
+O projeto possui um aplicativo chamado `commons`, além de algumas pastas auxiliares que compõem o projeto!
